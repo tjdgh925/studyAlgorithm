@@ -40,7 +40,7 @@ class Edge implements Comparable<Edge> {
 	}
 }
 
-public class kruskal {
+public class boj_1197_최소스패닝트리_kruskal {
 	public static int v, e;
 	public static int[] parent = new int[100001];
 	public static ArrayList<Edge> edges = new ArrayList<>();
