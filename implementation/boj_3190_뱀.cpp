@@ -1,3 +1,4 @@
+#include <deque>
 #include <iostream>
 #include <vector>
 
@@ -9,10 +10,11 @@ struct Coordinate {
 };
 
 int N, K, L;
-bool board[101][101];
+int board[101][101];
 vector<Coordinate> rotation;
-int dx[4] = {1, 0, -1, 0};
+deque<pair<int, int>> dq;
 int dy[4] = {0, -1, 0, 1};
+int dx[4] = {1, 0, -1, 0};
 Coordinate temp;
 int main() {
   cin >> N;
@@ -21,10 +23,10 @@ int main() {
     int tempA;
     int tempB;
     cin >> tempA >> tempB;
-    board[tempA][tempB] = true;
+    board[tempA][tempB] = 1;
   }
   cin >> L;
-  for (int i = 0; i < L; i++) {
+  for (int i = 1; i <= L; i++) {
     int s;
     char d;
     cin >> s >> d;
@@ -32,30 +34,39 @@ int main() {
     temp.direction = d;
     rotation.push_back(temp);
   }
-  temp = rotation[0];
 
-  bool flag = true;
   int count = 0;
+  int time = 0;
   int xy = 0;
   int x = 1, y = 1;
-  while (flag) {
+  dq.push_back({y, x});
+  board[y][x] = 2;
+  while (1) {
     count++;
-    if (count == temp.second && temp.direction == 'D') {
-      xy += 1;
-    } else if (count == temp.second && temp.direction == 'L') {
-      xy -= 1;
-    }
-    if (x + dx[xy] < 1 || x + dx[xy] > K || y + dy[xy] < 1 || y + dy[xy] > K)
-      flag = false;
-    if (board[x + dx[xy]][y + dy[xy]] == 1) {
-      board[x + dx[xy]][y + dy[xy]] = true;
-    } else {
-      board[x][y] = false;
-      board[x + dx[xy]][y + dy[xy]] = true;
-    }
+    int bx = x;
+    int by = y;
     x = x + dx[xy];
     y = y + dy[xy];
-    xy = xy % 4;
+    if (x < 1 || x > N || y < 1 || y > N || board[y][x] == 2)
+      break;
+    else if (board[y][x] == 0) {
+      board[y][x] = 2;
+      board[dq.back().first][dq.back().second] = 0;
+      dq.pop_back();
+      dq.push_front({y, x});
+    } else if (board[y][x] == 1) {
+      board[y][x] = 2;
+      dq.push_front({y, x});
+    }
+    if (time < rotation.size()) {
+      if (count == rotation[time].second) {
+        if (rotation[time].direction == 'L')
+          xy = (xy + 1) % 4;
+        else if (rotation[time].direction == 'D')
+          xy = (xy + 3) % 4;
+        time++;
+      }
+    }
   }
 
   cout << count;
