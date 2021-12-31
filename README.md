@@ -2,4 +2,4 @@
 
 알고리즘 공부하기.
 
-[Notion](https://cactus-yam-6e4.notion.site/4493e8cc3c4642d69d9c758b99ab64d2?v=19e0f40ff30b4e7a906bbe7b9ad674ca)
+[블로그 정리](https://tjdgh925.tistory.com/category/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/%EB%B0%B1%EC%A4%80)
