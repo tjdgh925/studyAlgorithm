@@ -16,8 +16,8 @@ int main() {
 
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < i; j++) {
-      if (seq[j] < seq[i] && dp[j] >= dp[i])
-        dp[i] = dp[j] + 1;
+      if (seq[j] < seq[i])
+        dp[i] = max(dp[i], dp[j] + 1);
     }
     result = max(result, dp[i]);
   }
